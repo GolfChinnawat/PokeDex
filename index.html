@@ -1,0 +1,561 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>POKEDEX PRO</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* --- โค้ดเดิมที่คุณให้มา (ห้ามแก้) --- */
+:root {
+  --main-color: #00e5ff;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  background:
+    radial-gradient(circle at top, #00111f, #000);
+  color: white;
+  min-height: 100vh;
+}
+
+/* HEADER */
+h1 {
+  text-align: center;
+  font-size: 48px;
+  margin-top: 25px;
+  color: var(--main-color);
+  text-shadow:
+    0 0 10px var(--main-color),
+    0 0 30px var(--main-color);
+  letter-spacing: 3px;
+}
+
+/* SEARCH */
+.search-box {
+  text-align: center;
+  margin: 25px;
+}
+
+input {
+  width: 300px;
+  padding: 12px 18px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  background: rgba(255,255,255,0.08);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+input::placeholder{
+  color: rgba(255,255,255,0.4);
+}
+
+button {
+  padding: 12px 22px;
+  border-radius: 30px;
+  border: none;
+  background: var(--main-color);
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-left: 10px;
+  font-family: inherit;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px var(--main-color);
+}
+
+/* EMPTY */
+.empty {
+  text-align: center;
+  margin-top: 90px;
+  font-size: 22px;
+  opacity: 0.5;
+  letter-spacing: 1px;
+}
+
+/* NAV */
+.nav {
+  display: none;
+  justify-content: space-between;
+  padding: 0 40px;
+  margin-top: 10px;
+}
+
+.nav div {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 12px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.nav div:hover {
+  background: var(--main-color);
+  color: black;
+  box-shadow: 0 0 15px var(--main-color);
+}
+
+/* MAIN */
+.main {
+  display: none;
+  justify-content: center;
+  gap: 70px;
+  margin-top: 30px;
+  padding-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+/* LEFT */
+.left {
+  text-align: center;
+}
+
+.id {
+  font-size: 20px;
+  opacity: 0.5;
+}
+
+.name {
+  font-size: 45px;
+  margin-top: 10px;
+  text-shadow:
+    0 0 10px var(--main-color),
+    0 0 25px var(--main-color);
+}
+
+/* IMAGE */
+img {
+  width: 300px;
+  animation: float 3s ease-in-out infinite;
+  filter:
+    drop-shadow(0 0 25px var(--main-color));
+}
+
+@keyframes float {
+  0% {transform: translateY(0);}
+  50% {transform: translateY(-15px);}
+  100% {transform: translateY(0);}
+}
+
+/* TYPE */
+.type {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 999px;
+  margin: 5px;
+  background: var(--main-color);
+  color: black;
+  font-weight: bold;
+  box-shadow: 0 0 10px var(--main-color);
+}
+
+/* RIGHT */
+.right {
+  width: 340px;
+}
+
+.box {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  padding: 16px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  box-shadow:
+    0 0 15px rgba(0,0,0,0.4);
+}
+
+/* SECTION TITLE */
+.box-title{
+  font-size: 14px;
+  opacity: 0.7;
+  margin-bottom: 12px;
+  letter-spacing: 2px;
+}
+
+/* BODY DATA */
+.info-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.info-card{
+  background: rgba(255,255,255,0.05);
+  border-radius: 16px;
+  padding: 18px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.info-value{
+  font-size: 24px;
+  color: var(--main-color);
+  text-shadow: 0 0 12px var(--main-color);
+}
+
+.info-label{
+  font-size: 12px;
+  opacity: 0.6;
+  margin-top: 6px;
+}
+
+/* ABILITIES */
+.ability-list{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ability{
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 13px;
+}
+
+/* STATS */
+.stat-name{
+  margin-top: 12px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.stat-bar{
+  height: 10px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.stat-fill{
+  height: 100%;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      90deg,
+      var(--main-color),
+      white
+    );
+
+  box-shadow:
+    0 0 10px var(--main-color);
+}
+/* --- จบส่วนโค้ดเดิมที่คุณให้มา --- */
+
+/* --- เพิ่มเติม CSS สำหรับระบบใหม่ --- */
+.tabs { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; }
+.tab-btn { background: none; border: 2px solid var(--main-color); color: var(--main-color); padding: 10px 30px; border-radius: 10px; cursor: pointer; font-weight: bold; font-family: inherit; }
+.tab-btn.active { background: var(--main-color); color: black; }
+
+/* ERROR UI - หน้าจอไม่พบโปเกม่อน */
+.not-found-container {
+  display: none;
+  text-align: center;
+  margin-top: 60px;
+  padding: 40px;
+  animation: fadeIn 0.5s ease;
+}
+.not-found-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 0 15px #ff1744);
+}
+.not-found-text {
+  font-size: 28px;
+  color: #ff1744;
+  text-shadow: 0 0 10px #ff1744;
+  letter-spacing: 2px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* BATTLE STYLES */
+.battle-container { display: none; max-width: 1000px; margin: 0 auto; padding: 20px; }
+.battle-inputs { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
+.battle-vs { display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 30px; }
+.battle-card { background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 20px; width: 45%; text-align: center; transition: 0.5s; }
+.battle-card.winner { border-color: #ffde00; box-shadow: 0 0 30px #ffde00; transform: scale(1.05); }
+.vs-text { font-size: 50px; color: #ff3e3e; text-shadow: 0 0 15px #ff3e3e; font-style: italic; }
+.battle-img { width: 200px !important; }
+.glow-text { font-weight: bold; text-shadow: 0 0 15px var(--main-color); }
+.winner-badge { color: #ffde00; font-size: 24px; margin-top: 10px; display: none; }
+
+@media(max-width: 800px){ .battle-vs { flex-direction: column; } .battle-card { width: 90%; } }
+</style>
+</head>
+
+<body>
+
+<h1>POKEDEX</h1>
+
+<!-- Tabs สลับโหมด -->
+<div class="tabs">
+  <div class="tab-btn active" onclick="switchMode('search')">SEARCH</div>
+  <div class="tab-btn" onclick="switchMode('battle')">BATTLE</div>
+</div>
+
+<!-- โหมดค้นหาปกติ -->
+<div id="search-section">
+  <div class="search-box">
+    <input id="search" placeholder="Search name / id / #id">
+    <button onclick="getPokemon()">Search</button>
+  </div>
+
+  <div class="empty" id="empty">
+    🔍 Search Pokémon to begin
+  </div>
+
+  <!-- หน้าจอ UI เมื่อค้นหาไม่เจอ -->
+  <div class="not-found-container" id="not-found">
+    <div class="not-found-icon">🚫</div>
+    <div class="not-found-text">POKÉMON NOT FOUND</div>
+    <p style="opacity: 0.5; margin-top: 15px;">Target not identified. Please check the name or ID.</p>
+  </div>
+
+  <div class="nav">
+    <div onclick="prevPokemon()" id="prev"></div>
+    <div onclick="nextPokemon()" id="next"></div>
+  </div>
+
+  <div class="main">
+    <div class="left">
+      <div class="id" id="id"></div>
+      <div class="name" id="name"></div>
+      <img id="image">
+      <div id="types"></div>
+    </div>
+
+    <div class="right">
+      <div class="box" id="size"></div>
+      <div class="box" id="abilities"></div>
+      <div class="box">
+        <div class="box-title">BASE STATS</div>
+        <div id="stats"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- โหมดต่อสู้ (Battle Mode) -->
+<div id="battle-section" class="battle-container">
+  <div class="battle-inputs">
+    <input id="p1-input" placeholder="Pokémon 1 Name/ID">
+    <input id="p2-input" placeholder="Pokémon 2 Name/ID">
+    <button onclick="startBattle()">BATTLE!</button>
+  </div>
+
+  <div class="battle-vs" id="battle-result">
+    <div class="battle-card" id="card1">
+      <div class="name" id="p1-name" style="font-size: 25px;">???</div>
+      <img id="p1-img" class="battle-img" src="">
+      <div id="p1-stats-list"></div>
+      <div class="winner-badge" id="p1-winner">🏆 WINNER</div>
+    </div>
+    <div class="vs-text">VS</div>
+    <div class="battle-card" id="card2">
+      <div class="name" id="p2-name" style="font-size: 25px;">???</div>
+      <img id="p2-img" class="battle-img" src="">
+      <div id="p2-stats-list"></div>
+      <div class="winner-badge" id="p2-winner">🏆 WINNER</div>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentId = null;
+
+const typeColors = {
+  normal: "#A8A77A", fire: "#EE8130", water: "#6390F0", electric: "#F7D02C",
+  grass: "#7AC74C", ice: "#96D9D6", fighting: "#C22E28", poison: "#A33EA1",
+  ground: "#E2BF65", flying: "#A98FF3", psychic: "#F95587", bug: "#A6B91A",
+  rock: "#B6A136", ghost: "#735797", dragon: "#6F35FC", dark: "#705746",
+  steel: "#B7B7CE", fairy: "#D685AD"
+};
+
+function normalizeInput(value){
+  value = value.toString().trim().toLowerCase();
+  if(value.startsWith("#")){
+    value = value.replace("#", ""); 
+    value = parseInt(value).toString();
+  }
+  return value;
+}
+
+function formatId(id){
+  if(id <= 0) return "#0000";
+  return "#" + id.toString().padStart(4,'0');
+}
+
+function switchMode(mode) {
+  const sSec = document.getElementById('search-section');
+  const bSec = document.getElementById('battle-section');
+  const tabs = document.querySelectorAll('.tab-btn');
+  
+  if(mode === 'search') {
+    sSec.style.display = 'block';
+    bSec.style.display = 'none';
+    tabs[0].classList.add('active');
+    tabs[1].classList.remove('active');
+  } else {
+    sSec.style.display = 'none';
+    bSec.style.display = 'block';
+    tabs[1].classList.add('active');
+    tabs[0].classList.remove('active');
+  }
+}
+
+async function fetchName(id){
+  if(id <= 0) return "---";
+  try{
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    if(!res.ok) return "---";
+    const data = await res.json();
+    return data.name.toUpperCase();
+  }catch{ return "---"; }
+}
+
+async function getPokemon(input){
+  let raw = input || document.getElementById("search").value;
+  if(!raw) return;
+  let value = normalizeInput(raw);
+
+  // เคลียร์ UI ก่อนค้นหาใหม่
+  document.getElementById("not-found").style.display = "none";
+
+  try{
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${value}`);
+    
+    if(!res.ok) {
+      throw new Error("NotFound");
+    }
+    
+    const data = await res.json();
+    currentId = data.id;
+
+    /* SHOW INFO UI */
+    document.querySelector(".main").style.display = "flex";
+    document.querySelector(".nav").style.display = "flex";
+    document.getElementById("empty").style.display = "none";
+    document.getElementById("not-found").style.display = "none";
+
+    let color = typeColors[data.types[0].type.name] || "#00e5ff";
+    document.documentElement.style.setProperty('--main-color', color);
+
+    document.getElementById("id").innerText = formatId(data.id);
+    document.getElementById("name").innerText = data.name.toUpperCase();
+    document.getElementById("image").src = data.sprites.other["official-artwork"].front_default;
+
+    document.getElementById("types").innerHTML = data.types.map(t => `
+        <span class="type" style="background: ${typeColors[t.type.name]}; color: white;">
+          ${t.type.name.toUpperCase()}
+        </span>
+      `).join("");
+
+    document.getElementById("size").innerHTML = `
+      <div class="box-title">BODY DATA</div>
+      <div class="info-grid">
+        <div class="info-card" style="box-shadow: 0 0 10px ${color}">
+          <div class="info-value glow-text" style="color: ${color}">${data.height / 10}m</div>
+          <div class="info-label">HEIGHT</div>
+        </div>
+        <div class="info-card" style="box-shadow: 0 0 10px ${color}">
+          <div class="info-value glow-text" style="color: ${color}">${data.weight / 10}kg</div>
+          <div class="info-label">WEIGHT</div>
+        </div>
+      </div>
+    `;
+
+    document.getElementById("abilities").innerHTML = `
+      <div class="box-title">ABILITIES</div>
+      <div class="ability-list">
+        ${data.abilities.map(a => `<div class="ability">${a.ability.name.toUpperCase()}</div>`).join("")}
+      </div>
+    `;
+
+    document.getElementById("stats").innerHTML = data.stats.map(s => `
+        <div class="stat-name">
+          <span>${s.stat.name.toUpperCase()}</span>
+          <span>${s.base_stat}</span>
+        </div>
+        <div class="stat-bar">
+          <div class="stat-fill" style="width:${Math.min(s.base_stat, 100)}%; background: linear-gradient(90deg, ${color}, white);"></div>
+        </div>
+      `).join("");
+
+    const prevName = await fetchName(currentId - 1);
+    const nextName = await fetchName(currentId + 1);
+    document.getElementById("prev").innerText = `⬅ ${formatId(currentId - 1)} ${prevName}`;
+    document.getElementById("next").innerText = `${formatId(currentId + 1)} ${nextName} ➡`;
+
+  }catch(e){
+    /* SHOW NOT FOUND UI */
+    document.querySelector(".main").style.display = "none";
+    document.querySelector(".nav").style.display = "none";
+    document.getElementById("empty").style.display = "none";
+    document.getElementById("not-found").style.display = "block";
+  }
+}
+
+async function startBattle() {
+  const p1Val = normalizeInput(document.getElementById('p1-input').value);
+  const p2Val = normalizeInput(document.getElementById('p2-input').value);
+  if(!p1Val || !p2Val) return;
+  try {
+    const [p1, p2] = await Promise.all([
+      fetch(`https://pokeapi.co/api/v2/pokemon/${p1Val}`).then(r => r.json()),
+      fetch(`https://pokeapi.co/api/v2/pokemon/${p2Val}`).then(r => r.json())
+    ]);
+    updateBattleCard('1', p1);
+    updateBattleCard('2', p2);
+    const sum1 = p1.stats.reduce((a, b) => a + b.base_stat, 0);
+    const sum2 = p2.stats.reduce((a, b) => a + b.base_stat, 0);
+    document.getElementById('card1').classList.toggle('winner', sum1 > sum2);
+    document.getElementById('p1-winner').style.display = (sum1 > sum2) ? 'block' : 'none';
+    document.getElementById('card2').classList.toggle('winner', sum2 > sum1);
+    document.getElementById('p2-winner').style.display = (sum2 > sum1) ? 'block' : 'none';
+  } catch (e) { alert("Battle data error"); }
+}
+
+function updateBattleCard(num, data) {
+  const color = typeColors[data.types[0].type.name] || "#00e5ff";
+  document.getElementById(`p${num}-name`).innerText = data.name.toUpperCase();
+  document.getElementById(`p${num}-img`).src = data.sprites.other["official-artwork"].front_default;
+  document.getElementById(`p${num}-img`).style.filter = `drop-shadow(0 0 15px ${color})`;
+  const totalStat = data.stats.reduce((a, b) => a + b.base_stat, 0);
+  document.getElementById(`p${num}-stats-list`).innerHTML = `
+    <div style="margin-top:15px; font-weight:bold; color:${color}">POWER: ${totalStat}</div>
+    ${data.stats.slice(0,3).map(s => `
+      <div style="font-size:10px; margin-top:5px;">${s.stat.name.toUpperCase()}: ${s.base_stat}</div>
+      <div class="stat-bar" style="height:6px;"><div class="stat-fill" style="width:${(s.base_stat/150)*100}%; background:${color}"></div></div>
+    `).join('')}
+  `;
+}
+
+function nextPokemon(){ if(currentId) getPokemon(currentId + 1); }
+function prevPokemon(){ if(currentId && currentId > 1) getPokemon(currentId - 1); }
+document.getElementById("search").addEventListener("keypress", (e) => { if(e.key === "Enter") getPokemon(); });
+</script>
+
+</body>
+</html>
